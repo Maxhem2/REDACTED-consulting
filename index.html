@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="favicon.ico">
+    <title>REDACTED CONSULTING</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 300px;
+            background-color: #f8f4ec;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+        }
+
+        .sidebar-top-img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .nav-menu {
+            list-style: none;
+            text-align: center;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-menu li {
+            margin: 5px 0;
+        }
+
+        .nav-menu li a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+            font-size: 16px;
+            display: block;
+            padding: 5px 0;
+            cursor: pointer;
+        }
+
+        .sidebar-bottom-img {
+            width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        .main-content {
+            flex: 1;
+            background-color: #007BFF;
+            color: white;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px;
+            min-height: 100vh;
+        }
+
+        .main-inner {
+            max-width: 600px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .language-switch {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .language-switch img {
+            width: 48px;
+            height: 32px;
+            margin-left: 10px;
+            cursor: pointer;
+            object-fit: cover;
+        }
+
+        .logo-container {
+            margin-top: 60px;
+            margin-bottom: 20px;
+        }
+
+        .logo-container img {
+            max-width: 600px;
+            width: 100%;
+            height: auto;
+        }
+
+        .content-text {
+            margin: 20px auto;
+            font-size: 16px;
+            line-height: 1.5;
+            font-weight: bold;
+        }
+
+        .content-text .highlight {
+            color: white;
+        }
+
+        .profile-img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+        }
+
+        .quote {
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .quote-author {
+            font-size: 14px;
+            color: white;
+            margin-top: 10px;
+        }
+
+        .subpage-logo-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .subpage-logo {
+            width: 100px;
+            height: auto;
+        }
+
+        .main-inner.subpage {
+            padding-top: 100px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-around;
+                padding: 10px;
+            }
+
+            .sidebar-top-img,
+            .sidebar-bottom-img {
+                width: 80px;
+                margin: 0;
+            }
+
+            .nav-menu {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 5px;
+            }
+
+            .nav-menu li {
+                margin: 5px;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <img class="sidebar-top-img" src="ImageTopLeft.png" alt="Business Meeting">
+
+            <ul class="nav-menu">
+
+                <li><a data-page-de="ueber-uns.html" data-page-en="about-us.html">Über uns</a></li>
+                <li><a data-page-de="der-blick-von-aussen.html" data-page-en="outside-perspective.html">Der Blick von
+                        Außen</a></li>
+                <li><a data-page-de="marketing-und-vertrieb.html" data-page-en="marketing-and-sales.html">Marketing und
+                        Vertrieb</a></li>
+                <li><a data-page-de="marktpotenzial.html" data-page-en="market-potential.html">Marktpotenzial</a></li>
+                <li><a data-page-de="umsatzanalysen.html" data-page-en="sales-analyses.html">Umsatzanalysen</a></li>
+                <li><a data-page-de="umsatzoptimierung.html"
+                        data-page-en="sales-optimization.html">Umsatzoptimierung</a></li>
+                <li><a data-page-de="absatz-netzwerke.html"
+                        data-page-en="distribution-networks.html">Absatz-Netzwerke</a></li>
+                <li><a data-page-de="werbung-und-pr.html" data-page-en="advertising-and-pr.html">Werbung und PR</a></li>
+                <li><a data-page-de="projektmanagement.html"
+                        data-page-en="project-management.html">Projektmanagement</a></li>
+                <li><a data-page-de="schulung-und-training.html" data-page-en="training-and-coaching.html">Schulung und
+                        Training</a></li>
+                <li><a data-page-de="kontakt.html" data-page-en="contact.html">Kontakt</a></li>
+                <li><a data-page-de="impressum.html" data-page-en="imprint.html">Impressum</a></li>
+            </ul>
+
+            <img class="sidebar-bottom-img" src="ImageBottomLeft.png" alt="Growth Graph">
+        </aside>
+
+        <main class="main-content">
+            <div class="language-switch">
+                <img src="ukflag.png" alt="English">
+                <img src="germanflag.png" alt="Deutsch">
+            </div>
+
+            <div class="main-inner" id="mainInner">
+
+                <div class="logo-container">
+                    <img src="Companylogo.png" alt="REDACTED CONSULTING">
+                </div>
+                <div class="content-text">
+                    <p>
+                        Wir bieten <span class="highlight">maßgeschneiderte</span> Beratungsdienstleistungen in den
+                        Bereichen
+                        <span class="highlight">Marketing</span> und <span class="highlight">Verkauf</span>. Mit unseren
+                        umfangreichen
+                        Erfahrungen und unserem fundierten Wissen unterstützen wir Ihr Unternehmen auf dem Weg zum
+                        Erfolg.
+                    </p>
+                </div>
+                <div>
+                    <img class="profile-img" src="REDACTEDREDACTED.png" alt="REDACTED REDACTED">
+                </div>
+                <div class="quote">
+                    „DIE BASIS ALLER ERFOLGE <br> SIND WISSEN UND ERFAHRUNG“
+                </div>
+                <div class="quote-author">
+                    REDACTED REDACTED, Geschäftsführer
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+
+        const germanLanding = `
+      <div class="logo-container">
+        <img src="Companylogo.png" alt="REDACTED CONSULTING">
+      </div>
+      <div class="content-text">
+        <p>
+          Wir bieten <span class="highlight">maßgeschneiderte</span> Beratungsdienstleistungen in den Bereichen 
+          <span class="highlight">Marketing</span> und <span class="highlight">Verkauf</span>. Mit unseren umfangreichen 
+          Erfahrungen und unserem fundierten Wissen unterstützen wir Ihr Unternehmen auf dem Weg zum Erfolg.
+        </p>
+      </div>
+      <div>
+        <img class="profile-img" src="REDACTEDREDACTED.png" alt="REDACTED REDACTED">
+      </div>
+      <div class="quote">
+        „DIE BASIS ALLER ERFOLGE <br> SIND WISSEN UND ERFAHRUNG“
+      </div>
+      <div class="quote-author">
+        REDACTED REDACTED, Geschäftsführer
+      </div>
+    `;
+
+        const englishLanding = `
+      <div class="logo-container">
+        <img src="Companylogo.png" alt="REDACTED CONSULTING">
+      </div>
+      <div class="content-text">
+        <p>
+          We offer <span class="highlight">tailored</span> consulting services in 
+          <span class="highlight">Marketing</span> and <span class="highlight">Sales</span>. With our extensive
+          experience and deep expertise, we support your company on the path to success.
+        </p>
+      </div>
+      <div>
+        <img class="profile-img" src="REDACTEDREDACTED.png" alt="REDACTED REDACTED">
+      </div>
+      <div class="quote">
+        “THE FOUNDATION OF ALL SUCCESS <br> IS KNOWLEDGE AND EXPERIENCE”
+      </div>
+      <div class="quote-author">
+        REDACTED REDACTED, CEO
+      </div>
+    `;
+
+        let currentLanguage = 'de';         
+        let currentSubpageLink = null;      
+
+        const mainInner = document.getElementById('mainInner');
+        const links = document.querySelectorAll('.nav-menu li a');
+        const englishFlag = document.querySelector('img[alt="English"]');
+        const germanFlag = document.querySelector('img[alt="Deutsch"]');
+
+        function loadSubpage(file) {
+            fetch(file)
+                .then(response => response.text())
+                .then(data => {
+                    const subpageHTML = `
+            <div class="subpage-logo-container">
+              <img src="Companylogo.png" alt="REDACTED CONSULTING" class="subpage-logo" />
+            </div>
+            ${data}
+          `;
+                    mainInner.innerHTML = subpageHTML;
+                    mainInner.classList.add('subpage');
+                })
+                .catch(error => console.error('Error loading content:', error));
+        }
+
+        function loadLanding(lang) {
+            mainInner.classList.remove('subpage');
+            mainInner.innerHTML = (lang === 'en') ? englishLanding : germanLanding;
+            currentSubpageLink = null;
+        }
+
+        links.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                currentSubpageLink = this;
+                const pageFile = (currentLanguage === 'de')
+                    ? this.getAttribute('data-page-de')
+                    : this.getAttribute('data-page-en');
+                loadSubpage(pageFile);
+            });
+        });
+
+        englishFlag.addEventListener('click', function () {
+            currentLanguage = 'en';
+            if (currentSubpageLink) {
+
+                const pageFile = currentSubpageLink.getAttribute('data-page-en');
+                loadSubpage(pageFile);
+            } else {
+
+                loadLanding('en');
+            }
+        });
+
+        germanFlag.addEventListener('click', function () {
+            currentLanguage = 'de';
+            if (currentSubpageLink) {
+
+                const pageFile = currentSubpageLink.getAttribute('data-page-de');
+                loadSubpage(pageFile);
+            } else {
+
+                loadLanding('de');
+            }
+        });
+    </script>
+</body>
+
+</html>
