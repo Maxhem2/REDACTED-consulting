@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="favicon.ico">
     <title>REDACTED CONSULTING</title>
+
     <style>
         * {
             margin: 0;
@@ -15,9 +16,10 @@
 
         html,
         body {
+            width: 100%;
             height: 100%;
             font-family: Arial, sans-serif;
-            overflow-x: hidden;
+            overflow: auto;
         }
 
         .container {
@@ -31,21 +33,29 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 0 20px;
+            justify-content: flex-start;
+            padding: 20px;
         }
 
-        .sidebar-top-img {
+        .sidebar-top-img,
+        .sidebar-bottom-img {
             width: 100%;
             height: auto;
             margin-bottom: 10px;
+        }
+
+        .menu-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin: 20px 0 10px;
+            text-align: center;
         }
 
         .nav-menu {
             list-style: none;
             text-align: center;
             width: 100%;
-            margin: 0;
+            margin: 10px 0;
             padding: 0;
         }
 
@@ -63,28 +73,23 @@
             cursor: pointer;
         }
 
-        .sidebar-bottom-img {
-            width: 100%;
-            height: auto;
-            margin-top: 10px;
-        }
-
         .main-content {
             flex: 1;
             background-color: #007BFF;
             color: white;
             position: relative;
             display: flex;
-            align-items: center;
             justify-content: center;
-            text-align: center;
+            align-items: flex-start;
             padding: 40px;
-            min-height: 100vh;
+            overflow: auto;
         }
 
         .main-inner {
-            max-width: 600px;
             width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
             transition: all 0.3s ease;
         }
 
@@ -103,59 +108,87 @@
         }
 
         .logo-container {
-            margin-top: 60px;
+            margin-top: 40px;
             margin-bottom: 20px;
         }
 
         .logo-container img {
-            max-width: 600px;
-            width: 100%;
+            width: 600px;
+            max-width: 100%;
             height: auto;
+            display: block;
+            margin: 0 auto;
         }
 
         .content-text {
             margin: 20px auto;
-            font-size: 16px;
+            font-size: 18px;
             line-height: 1.5;
             font-weight: bold;
+            max-width: 600px;
+            color: white;
+            text-align: left;
         }
 
         .content-text .highlight {
             color: white;
+            font-weight: bold;
         }
 
         .profile-img {
+            width: 400px;
             max-width: 100%;
             height: auto;
-            margin: 20px 0;
+            display: block;
+            margin: 20px auto;
         }
 
         .quote {
             font-weight: bold;
             text-transform: uppercase;
             margin-top: 20px;
-            font-size: 18px;
+            font-size: 20px;
+            text-align: center;
         }
 
         .quote-author {
-            font-size: 14px;
+            font-size: 16px;
             color: white;
             margin-top: 10px;
-        }
-
-        .subpage-logo-container {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-        }
-
-        .subpage-logo {
-            width: 100px;
-            height: auto;
+            text-align: center;
         }
 
         .main-inner.subpage {
-            padding-top: 100px;
+            text-align: left;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .subpage-logo-container {
+            margin-bottom: 20px;
+        }
+
+        .subpage-logo {
+            width: 200px;
+            height: auto;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .main-inner.subpage h1 {
+            margin-bottom: 20px;
+        }
+
+        .main-inner.subpage p {
+            margin-bottom: 15px;
+            line-height: 1.5;
+            color: white;
+        }
+
+        .main-inner.subpage .quote {
+            text-align: center;
+            margin-top: 20px;
         }
 
         @media (max-width: 768px) {
@@ -182,14 +215,23 @@
                 flex-wrap: wrap;
                 justify-content: center;
                 gap: 5px;
-            }
-
-            .nav-menu li {
-                margin: 5px;
+                margin-bottom: 10px;
             }
 
             .main-content {
                 padding: 20px;
+            }
+
+            .logo-container img {
+                width: 90%;
+            }
+
+            .profile-img {
+                width: 80%;
+            }
+
+            .main-inner {
+                max-width: 100%;
             }
         }
     </style>
@@ -197,11 +239,13 @@
 
 <body>
     <div class="container">
+
         <aside class="sidebar">
-            <img class="sidebar-top-img" src="ImageTopLeft.png" alt="Business Meeting">
+            <img class="sidebar-top-img" src="ImageTopLeft.jpg" alt="Business Meeting">
+
+            <div class="menu-title">Menü</div>
 
             <ul class="nav-menu">
-
                 <li><a data-page-de="ueber-uns.html" data-page-en="about-us.html">Über uns</a></li>
                 <li><a data-page-de="der-blick-von-aussen.html" data-page-en="outside-perspective.html">Der Blick von
                         Außen</a></li>
@@ -214,27 +258,26 @@
                 <li><a data-page-de="absatz-netzwerke.html"
                         data-page-en="distribution-networks.html">Absatz-Netzwerke</a></li>
                 <li><a data-page-de="werbung-und-pr.html" data-page-en="advertising-and-pr.html">Werbung und PR</a></li>
-                <li><a data-page-de="projektmanagement.html"
-                        data-page-en="project-management.html">Projektmanagement</a></li>
                 <li><a data-page-de="schulung-und-training.html" data-page-en="training-and-coaching.html">Schulung und
                         Training</a></li>
+                <li><a data-page-de="projektmanagement.html"
+                        data-page-en="project-management.html">Projektmanagement</a></li>
                 <li><a data-page-de="kontakt.html" data-page-en="contact.html">Kontakt</a></li>
                 <li><a data-page-de="impressum.html" data-page-en="imprint.html">Impressum</a></li>
             </ul>
 
-            <img class="sidebar-bottom-img" src="ImageBottomLeft.png" alt="Growth Graph">
+            <img class="sidebar-bottom-img" src="ImageBottomLeft.jpg" alt="Growth Graph">
         </aside>
 
         <main class="main-content">
             <div class="language-switch">
-                <img src="ukflag.png" alt="English">
-                <img src="germanflag.png" alt="Deutsch">
+                <img src="ukflag.jpg" alt="English">
+                <img src="germanflag.jpg" alt="Deutsch">
             </div>
 
             <div class="main-inner" id="mainInner">
-
                 <div class="logo-container">
-                    <img src="Companylogo.png" alt="REDACTED CONSULTING">
+                    <img src="Companylogo.jpg" alt="REDACTED CONSULTING">
                 </div>
                 <div class="content-text">
                     <p>
@@ -247,7 +290,7 @@
                     </p>
                 </div>
                 <div>
-                    <img class="profile-img" src="REDACTEDREDACTED.png" alt="REDACTED REDACTED">
+                    <img class="profile-img" src="REDACTEDREDACTED.jpg" alt="REDACTED REDACTED">
                 </div>
                 <div class="quote">
                     „DIE BASIS ALLER ERFOLGE <br> SIND WISSEN UND ERFAHRUNG“
@@ -260,10 +303,9 @@
     </div>
 
     <script>
-
         const germanLanding = `
       <div class="logo-container">
-        <img src="Companylogo.png" alt="REDACTED CONSULTING">
+        <img src="Companylogo.jpg" alt="REDACTED CONSULTING">
       </div>
       <div class="content-text">
         <p>
@@ -273,7 +315,7 @@
         </p>
       </div>
       <div>
-        <img class="profile-img" src="REDACTEDREDACTED.png" alt="REDACTED REDACTED">
+        <img class="profile-img" src="REDACTEDREDACTED.jpg" alt="REDACTED REDACTED">
       </div>
       <div class="quote">
         „DIE BASIS ALLER ERFOLGE <br> SIND WISSEN UND ERFAHRUNG“
@@ -285,7 +327,7 @@
 
         const englishLanding = `
       <div class="logo-container">
-        <img src="Companylogo.png" alt="REDACTED CONSULTING">
+        <img src="Companylogo.jpg" alt="REDACTED CONSULTING">
       </div>
       <div class="content-text">
         <p>
@@ -295,7 +337,7 @@
         </p>
       </div>
       <div>
-        <img class="profile-img" src="REDACTEDREDACTED.png" alt="REDACTED REDACTED">
+        <img class="profile-img" src="REDACTEDREDACTED.jpg" alt="REDACTED REDACTED">
       </div>
       <div class="quote">
         “THE FOUNDATION OF ALL SUCCESS <br> IS KNOWLEDGE AND EXPERIENCE”
@@ -305,8 +347,8 @@
       </div>
     `;
 
-        let currentLanguage = 'de';         
-        let currentSubpageLink = null;      
+        let currentLanguage = 'de';
+        let currentSubpageLink = null;
 
         const mainInner = document.getElementById('mainInner');
         const links = document.querySelectorAll('.nav-menu li a');
@@ -319,7 +361,7 @@
                 .then(data => {
                     const subpageHTML = `
             <div class="subpage-logo-container">
-              <img src="Companylogo.png" alt="REDACTED CONSULTING" class="subpage-logo" />
+              <img src="Companylogo.jpg" alt="REDACTED CONSULTING" class="subpage-logo" />
             </div>
             ${data}
           `;
@@ -338,7 +380,6 @@
         links.forEach(link => {
             link.addEventListener('click', function (e) {
                 e.preventDefault();
-
                 currentSubpageLink = this;
                 const pageFile = (currentLanguage === 'de')
                     ? this.getAttribute('data-page-de')
@@ -350,11 +391,9 @@
         englishFlag.addEventListener('click', function () {
             currentLanguage = 'en';
             if (currentSubpageLink) {
-
                 const pageFile = currentSubpageLink.getAttribute('data-page-en');
                 loadSubpage(pageFile);
             } else {
-
                 loadLanding('en');
             }
         });
@@ -362,11 +401,9 @@
         germanFlag.addEventListener('click', function () {
             currentLanguage = 'de';
             if (currentSubpageLink) {
-
                 const pageFile = currentSubpageLink.getAttribute('data-page-de');
                 loadSubpage(pageFile);
             } else {
-
                 loadLanding('de');
             }
         });
