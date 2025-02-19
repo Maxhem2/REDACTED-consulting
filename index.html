@@ -1,413 +1,342 @@
 <!DOCTYPE html>
-<html lang="de">
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="favicon.ico">
-    <title>REDACTED CONSULTING</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>REDACTED CONSULTING</title>
+  <style>
+    /* Disable scrolling */
+    html, body {
+      overflow: hidden;
+    }
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            width: 100%;
-            height: 100%;
-            font-family: Arial, sans-serif;
-            overflow: auto;
-        }
-
-        .container {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        .sidebar {
-            width: 300px;
-            background-color: #f8f4ec;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            padding: 20px;
-        }
-
-        .sidebar-top-img,
-        .sidebar-bottom-img {
-            width: 100%;
-            height: auto;
-            margin-bottom: 10px;
-        }
-
-        .menu-title {
-            font-size: 1.2em;
-            font-weight: bold;
-            margin: 20px 0 10px;
-            text-align: center;
-        }
-
-        .nav-menu {
-            list-style: none;
-            text-align: center;
-            width: 100%;
-            margin: 10px 0;
-            padding: 0;
-        }
-
-        .nav-menu li {
-            margin: 5px 0;
-        }
-
-        .nav-menu li a {
-            text-decoration: none;
-            color: black;
-            font-weight: bold;
-            font-size: 16px;
-            display: block;
-            padding: 5px 0;
-            cursor: pointer;
-        }
-
-        .main-content {
-            flex: 1;
-            background-color: #007BFF;
-            color: white;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 40px;
-            overflow: auto;
-        }
-
-        .main-inner {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .language-switch {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-        }
-
-        .language-switch img {
-            width: 48px;
-            height: 32px;
-            margin-left: 10px;
-            cursor: pointer;
-            object-fit: cover;
-        }
-
-        .logo-container {
-            margin-top: 40px;
-            margin-bottom: 20px;
-        }
-
-        .logo-container img {
-            width: 600px;
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-        }
-
-        .content-text {
-            margin: 20px auto;
-            font-size: 18px;
-            line-height: 1.5;
-            font-weight: bold;
-            max-width: 600px;
-            color: white;
-            text-align: left;
-        }
-
-        .content-text .highlight {
-            color: white;
-            font-weight: bold;
-        }
-
-        .profile-img {
-            width: 400px;
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 20px auto;
-        }
-
-        .quote {
-            font-weight: bold;
-            text-transform: uppercase;
-            margin-top: 20px;
-            font-size: 20px;
-            text-align: center;
-        }
-
-        .quote-author {
-            font-size: 16px;
-            color: white;
-            margin-top: 10px;
-            text-align: center;
-        }
-
-        .main-inner.subpage {
-            text-align: left;
-            padding: 20px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .subpage-logo-container {
-            margin-bottom: 20px;
-        }
-
-        .subpage-logo {
-            width: 200px;
-            height: auto;
-            display: block;
-            margin-bottom: 20px;
-        }
-
-        .main-inner.subpage h1 {
-            margin-bottom: 20px;
-        }
-
-        .main-inner.subpage p {
-            margin-bottom: 15px;
-            line-height: 1.5;
-            color: white;
-        }
-
-        .main-inner.subpage .quote {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-
-            .sidebar {
-                width: 100%;
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-around;
-                padding: 10px;
-            }
-
-            .sidebar-top-img,
-            .sidebar-bottom-img {
-                width: 80px;
-                margin: 0;
-            }
-
-            .nav-menu {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 5px;
-                margin-bottom: 10px;
-            }
-
-            .main-content {
-                padding: 20px;
-            }
-
-            .logo-container img {
-                width: 90%;
-            }
-
-            .profile-img {
-                width: 80%;
-            }
-
-            .main-inner {
-                max-width: 100%;
-            }
-        }
-    </style>
+    /* Reset defaults */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      gap: 10px; /* Space between nav and main content */
+      min-height: 100vh;
+    }
+    
+    /* Navigation (Left Side) */
+    nav {
+      background-color: #fff;
+      width: 250px;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+    }
+    
+    .top-image img,
+    .bottom-image img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    
+    .nav-items {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .nav-items ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+    }
+    
+    .nav-items a {
+      text-decoration: none;
+      color: #000;
+      font-size: 1.1em;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+    
+    /* Main Content (Right Side) */
+    main {
+      flex: 1;
+      padding: 20px;
+      background-color: #0095d9;
+      text-align: center;
+      color: #fff;
+      position: relative; /* To position language-selector absolutely within main */
+    }
+    
+    /* Language Selector positioned in the top right corner */
+    .language-selector {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+    }
+    
+    .language-selector img {
+      width: 60px;
+      height: auto;
+      cursor: pointer;
+    }
+    
+    /* Logo & Tagline Wrapper */
+    .logo-wrapper {
+      margin: 20px auto 0;
+      max-width: 600px;
+      width: 100%;
+    }
+    
+    /* Company Logo Container – scales down if needed */
+    .company-logo {
+      margin: 0 auto;
+      max-width: 500px;
+      width: 100%;
+      transition: max-width 0.3s ease;
+    }
+    
+    .company-logo img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    /* Tagline container – its font size will be adjusted dynamically */
+    .logo-tagline {
+      margin: 10px 0 0;
+      text-align: left;
+      font-weight: bold;
+      line-height: 1.4;
+      max-width: 600px;
+      width: 100%;
+      /* Base font size; will be increased if extra space exists */
+      font-size: 16px;
+    }
+    
+    /* Manager Section */
+    .manager-section {
+      margin: 20px auto 0; /* margin-top will be adjusted dynamically */
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+      transition: margin-top 0.3s ease;
+    }
+    
+    .manager-section img {
+      /* Base maximum width for the manager image */
+      max-width: 200px;
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      transition: max-width 0.3s ease;
+    }
+    
+    .manager-text {
+      margin: 10px 0 0;
+      text-align: center;
+      line-height: 1.4;
+      /* Base font size for the manager text */
+      font-size: 16px;
+      transition: font-size 0.3s ease;
+    }
+    
+    .manager-text strong {
+      font-weight: bold;
+    }
+    
+    .manager-name {
+      margin-top: 5px;
+    }
+    
+    /* Responsive adjustments (by width) */
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+        gap: 0;
+      }
+      nav {
+        width: 100%;
+        height: auto;
+      }
+      .nav-items ul {
+        height: auto;
+        justify-content: center;
+      }
+      .logo-wrapper,
+      .manager-section {
+        max-width: 90%;
+      }
+    }
+  </style>
 </head>
-
 <body>
-    <div class="container">
-
-        <aside class="sidebar">
-            <img class="sidebar-top-img" src="ImageTopLeft.jpg" alt="Business Meeting">
-
-            <div class="menu-title">Menü</div>
-
-            <ul class="nav-menu">
-                <li><a data-page-de="ueber-uns.html" data-page-en="about-us.html">Über uns</a></li>
-                <li><a data-page-de="der-blick-von-aussen.html" data-page-en="outside-perspective.html">Der Blick von
-                        Außen</a></li>
-                <li><a data-page-de="marketing-und-vertrieb.html" data-page-en="marketing-and-sales.html">Marketing und
-                        Vertrieb</a></li>
-                <li><a data-page-de="marktpotenzial.html" data-page-en="market-potential.html">Marktpotenzial</a></li>
-                <li><a data-page-de="umsatzanalysen.html" data-page-en="sales-analyses.html">Umsatzanalysen</a></li>
-                <li><a data-page-de="umsatzoptimierung.html"
-                        data-page-en="sales-optimization.html">Umsatzoptimierung</a></li>
-                <li><a data-page-de="absatz-netzwerke.html"
-                        data-page-en="distribution-networks.html">Absatz-Netzwerke</a></li>
-                <li><a data-page-de="werbung-und-pr.html" data-page-en="advertising-and-pr.html">Werbung und PR</a></li>
-                <li><a data-page-de="schulung-und-training.html" data-page-en="training-and-coaching.html">Schulung und
-                        Training</a></li>
-                <li><a data-page-de="projektmanagement.html"
-                        data-page-en="project-management.html">Projektmanagement</a></li>
-                <li><a data-page-de="kontakt.html" data-page-en="contact.html">Kontakt</a></li>
-                <li><a data-page-de="impressum.html" data-page-en="imprint.html">Impressum</a></li>
-            </ul>
-
-            <img class="sidebar-bottom-img" src="ImageBottomLeft.jpg" alt="Growth Graph">
-        </aside>
-
-        <main class="main-content">
-            <div class="language-switch">
-                <img src="ukflag.jpg" alt="English">
-                <img src="germanflag.jpg" alt="Deutsch">
-            </div>
-
-            <div class="main-inner" id="mainInner">
-                <div class="logo-container">
-                    <img src="Companylogo.jpg" alt="REDACTED CONSULTING">
-                </div>
-                <div class="content-text">
-                    <p>
-                        Wir bieten <span class="highlight">maßgeschneiderte</span> Beratungsdienstleistungen in den
-                        Bereichen
-                        <span class="highlight">Marketing</span> und <span class="highlight">Verkauf</span>. Mit unseren
-                        umfangreichen
-                        Erfahrungen und unserem fundierten Wissen unterstützen wir Ihr Unternehmen auf dem Weg zum
-                        Erfolg.
-                    </p>
-                </div>
-                <div>
-                    <img class="profile-img" src="REDACTEDREDACTED.jpg" alt="REDACTED REDACTED">
-                </div>
-                <div class="quote">
-                    „DIE BASIS ALLER ERFOLGE <br> SIND WISSEN UND ERFAHRUNG“
-                </div>
-                <div class="quote-author">
-                    REDACTED REDACTED, Geschäftsführer
-                </div>
-            </div>
-        </main>
+  <nav>
+    <!-- Top image -->
+    <div class="top-image">
+      <img src="ImageTopLeft.jpg" alt="Top Left Image">
     </div>
+    
+    <!-- Navigation items -->
+    <div class="nav-items">
+      <ul>
+        <li><a href="#">Über uns</a></li>
+        <li><a href="#">Der Blick von Außen</a></li>
+        <li><a href="#">Marketing und Vertrieb</a></li>
+        <li><a href="#">Marktpotenzial</a></li>
+        <li><a href="#">Umsatzanalysen</a></li>
+        <li><a href="#">Umsatzoptimierung</a></li>
+        <li><a href="#">Absatz-Netzwerke</a></li>
+        <li><a href="#">Werbung und PR</a></li>
+        <li><a href="#">Schulung und Training</a></li>
+        <li><a href="#">Projektmanagement</a></li>
+        <li><a href="#">Kontakt</a></li>
+        <li><a href="#">Impressum</a></li>
+      </ul>
+    </div>
+    
+    <!-- Bottom image -->
+    <div class="bottom-image">
+      <img src="ImageBottomLeft.jpg" alt="Bottom Left Image">
+    </div>
+  </nav>
+  
+  <main>
+    <!-- Language Selector -->
+    <div class="language-selector">
+      <img src="germanflag.jpg" alt="German Flag">
+      <img src="ukflag.jpg" alt="UK Flag">
+    </div>
+  
+    <!-- Logo and Tagline Wrapper -->
+    <div class="logo-wrapper">
+      <div class="company-logo">
+        <img src="LogoBig.png" alt="Company Logo">
+      </div>
+      <div class="logo-tagline">
+        <strong>
+          Wir bieten maßgeschneiderte Beratungsdienstleistungen in den Bereichen Marketing und Verkauf. Mit unseren umfangreichen Erfahrungen und unserem fundierten Wissen unterstützen wir Ihr Unternehmen auf dem Weg zum Erfolg.
+        </strong>
+      </div>
+    </div>
+    
+    <!-- Manager Section -->
+    <div class="manager-section">
+      <img src="REDACTEDREDACTED.jpg" alt="REDACTED REDACTED">
+      <div class="manager-text">
+        <strong>
+          „DIE BASIS ALLER ERFOLGE<br>
+          SIND WISSEN UND ERFAHRUNG“
+        </strong>
+        <div class="manager-name">
+          REDACTED REDACTED, Geschäftsführer
+        </div>
+      </div>
+    </div>
+  </main>
 
-    <script>
-        const germanLanding = `
-      <div class="logo-container">
-        <img src="Companylogo.jpg" alt="REDACTED CONSULTING">
-      </div>
-      <div class="content-text">
-        <p>
-          Wir bieten <span class="highlight">maßgeschneiderte</span> Beratungsdienstleistungen in den Bereichen 
-          <span class="highlight">Marketing</span> und <span class="highlight">Verkauf</span>. Mit unseren umfangreichen 
-          Erfahrungen und unserem fundierten Wissen unterstützen wir Ihr Unternehmen auf dem Weg zum Erfolg.
-        </p>
-      </div>
-      <div>
-        <img class="profile-img" src="REDACTEDREDACTED.jpg" alt="REDACTED REDACTED">
-      </div>
-      <div class="quote">
-        „DIE BASIS ALLER ERFOLGE <br> SIND WISSEN UND ERFAHRUNG“
-      </div>
-      <div class="quote-author">
-        REDACTED REDACTED, Geschäftsführer
-      </div>
-    `;
+  <!-- JavaScript to dynamically adjust layout -->
+  <script>
+    function adjustLogoScale() {
+      const managerSection = document.querySelector('.manager-section');
+      const companyLogo = document.querySelector('.company-logo');
 
-        const englishLanding = `
-      <div class="logo-container">
-        <img src="Companylogo.jpg" alt="REDACTED CONSULTING">
-      </div>
-      <div class="content-text">
-        <p>
-          We offer <span class="highlight">tailored</span> consulting services in 
-          <span class="highlight">Marketing</span> and <span class="highlight">Sales</span>. With our extensive
-          experience and deep expertise, we support your company on the path to success.
-        </p>
-      </div>
-      <div>
-        <img class="profile-img" src="REDACTEDREDACTED.jpg" alt="REDACTED REDACTED">
-      </div>
-      <div class="quote">
-        “THE FOUNDATION OF ALL SUCCESS <br> IS KNOWLEDGE AND EXPERIENCE”
-      </div>
-      <div class="quote-author">
-        REDACTED REDACTED, CEO
-      </div>
-    `;
-
-        let currentLanguage = 'de';
-        let currentSubpageLink = null;
-
-        const mainInner = document.getElementById('mainInner');
-        const links = document.querySelectorAll('.nav-menu li a');
-        const englishFlag = document.querySelector('img[alt="English"]');
-        const germanFlag = document.querySelector('img[alt="Deutsch"]');
-
-        function loadSubpage(file) {
-            fetch(file)
-                .then(response => response.text())
-                .then(data => {
-                    const subpageHTML = `
-            <div class="subpage-logo-container">
-              <img src="Companylogo.jpg" alt="REDACTED CONSULTING" class="subpage-logo" />
-            </div>
-            ${data}
-          `;
-                    mainInner.innerHTML = subpageHTML;
-                    mainInner.classList.add('subpage');
-                })
-                .catch(error => console.error('Error loading content:', error));
-        }
-
-        function loadLanding(lang) {
-            mainInner.classList.remove('subpage');
-            mainInner.innerHTML = (lang === 'en') ? englishLanding : germanLanding;
-            currentSubpageLink = null;
-        }
-
-        links.forEach(link => {
-            link.addEventListener('click', function (e) {
-                e.preventDefault();
-                currentSubpageLink = this;
-                const pageFile = (currentLanguage === 'de')
-                    ? this.getAttribute('data-page-de')
-                    : this.getAttribute('data-page-en');
-                loadSubpage(pageFile);
-            });
-        });
-
-        englishFlag.addEventListener('click', function () {
-            currentLanguage = 'en';
-            if (currentSubpageLink) {
-                const pageFile = currentSubpageLink.getAttribute('data-page-en');
-                loadSubpage(pageFile);
-            } else {
-                loadLanding('en');
-            }
-        });
-
-        germanFlag.addEventListener('click', function () {
-            currentLanguage = 'de';
-            if (currentSubpageLink) {
-                const pageFile = currentSubpageLink.getAttribute('data-page-de');
-                loadSubpage(pageFile);
-            } else {
-                loadLanding('de');
-            }
-        });
-    </script>
+      // Check if the bottom of the manager section is visible.
+      const managerBottom = managerSection.getBoundingClientRect().bottom;
+      const viewportHeight = window.innerHeight;
+      
+      // If the manager section overflows, scale down the logo.
+      if (managerBottom > viewportHeight) {
+        companyLogo.style.maxWidth = '300px';
+      } else {
+        companyLogo.style.maxWidth = '500px';
+      }
+    }
+    
+    function adjustSpacing() {
+      const managerSection = document.querySelector('.manager-section');
+      const rect = managerSection.getBoundingClientRect();
+      const freeSpace = window.innerHeight - rect.bottom;
+      const baseMargin = 20;
+      // Increase margin-top by 50% of the extra free space.
+      const newMargin = freeSpace > 0 ? baseMargin + freeSpace * 0.5 : baseMargin;
+      managerSection.style.marginTop = newMargin + 'px';
+    }
+    
+    function adjustTaglineFontSize() {
+      const tagline = document.querySelector('.logo-tagline');
+      const managerSection = document.querySelector('.manager-section');
+      
+      // Measure the gap between the bottom of the tagline and the top of the manager section.
+      const taglineRect = tagline.getBoundingClientRect();
+      const managerRect = managerSection.getBoundingClientRect();
+      const gap = managerRect.top - taglineRect.bottom;
+      
+      const minGap = 10; // Target minimum gap
+      const baseFontSize = 16; // Base font size for the tagline in px
+      const maxFontSize = 32; // Maximum allowed font size
+      let newFontSize = baseFontSize;
+      
+      if (gap > minGap) {
+        newFontSize = baseFontSize + (gap - minGap) * 0.2;
+        if (newFontSize > maxFontSize) newFontSize = maxFontSize;
+      }
+      
+      tagline.style.fontSize = newFontSize + 'px';
+    }
+    
+    function adjustManagerSectionScale() {
+      const managerSection = document.querySelector('.manager-section');
+      const managerImage = managerSection.querySelector('img');
+      const managerText = managerSection.querySelector('.manager-text');
+      
+      // Base sizes
+      const baseImageMaxWidth = 200; // Base maximum width for the manager image
+      const baseTextFontSize = 16;   // Base font size for the manager text
+      
+      // Maximum allowed values
+      const maxImageWidth = 300;     // Maximum image width allowed
+      const maxTextFontSize = 20;    // Maximum font size allowed for text
+      
+      // Calculate free space below the manager section.
+      const rect = managerSection.getBoundingClientRect();
+      const freeSpace = window.innerHeight - rect.bottom;
+      
+      // Increase image size much more than text:
+      let imageIncrement = freeSpace * 0.2; // Increased scaling factor for image
+      if (imageIncrement > (maxImageWidth - baseImageMaxWidth)) {
+        imageIncrement = maxImageWidth - baseImageMaxWidth;
+      }
+      let textIncrement = freeSpace * 0.05; // Smaller scaling factor for text
+      if (textIncrement > (maxTextFontSize - baseTextFontSize)) {
+        textIncrement = maxTextFontSize - baseTextFontSize;
+      }
+      
+      managerImage.style.maxWidth = (baseImageMaxWidth + imageIncrement) + 'px';
+      managerText.style.fontSize = (baseTextFontSize + textIncrement) + 'px';
+    }
+    
+    function adjustLayout() {
+      adjustLogoScale();
+      adjustSpacing();
+      adjustTaglineFontSize();
+      adjustManagerSectionScale();
+    }
+    
+    window.addEventListener('load', adjustLayout);
+    window.addEventListener('resize', adjustLayout);
+  </script>
 </body>
-
 </html>
