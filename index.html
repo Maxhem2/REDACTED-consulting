@@ -2,60 +2,84 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>REDACTED CONSULTING</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Responsive Scaled Layout</title>
   <style>
-    /* Disable scrolling */
+    /* Reset & disable scrolling */
     html, body {
-      overflow: hidden;
-    }
-
-    /* Reset defaults */
-    * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
-    }
-    
-    body {
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
       font-family: Arial, sans-serif;
+      /* Default color – will be overridden with a gradient in JS */
+      background: #0095d9;
+      position: relative;
+    }
+    * {
+      box-sizing: border-box;
+    }
+
+    /* The fixed‐size container (base design: 1366×768) */
+    #scaler {
+      width: 1366px;
+      height: 768px;
+      transform-origin: top left;
       display: flex;
-      gap: 10px; /* Space between nav and main content */
-      min-height: 100vh;
+      position: absolute; /* so we can move it (left=0, top=some offset) */
     }
     
-    /* Navigation (Left Side) */
+    /* Left Navigation (base width: 250px, full height) */
     nav {
       background-color: #fff;
       width: 250px;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      padding: 0;
+      height: 768px;
+      position: relative; /* For absolute-positioned children */
+      /* Removed the previous “display:flex; justify-content: space-between;” */
     }
-    
+
+    /* Position top & bottom images absolutely in the nav */
+    .top-image, .bottom-image {
+      position: absolute;
+      left: 0;
+      width: 100%;
+    }
+    .top-image {
+      top: 0;
+    }
+    .bottom-image {
+      bottom: 0;
+    }
     .top-image img,
     .bottom-image img {
       display: block;
       width: 100%;
       height: auto;
+      transform: translateY(0px); /* will be adjusted in JS */
     }
     
+    /* Navigation items fill the space between top & bottom images */
     .nav-items {
-      flex: 1;
+      position: absolute;
+      left: 0;
+      right: 0;
+      /* The JS will set top and height to fill the space in between */
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      justify-content: center; /* or space-evenly, as you wish */
       align-items: center;
+      overflow: hidden; /* hide if overshooting */
     }
-    
     .nav-items ul {
       list-style: none;
       margin: 0;
       padding: 0;
-      height: 100%;
+      width: 100%;
+      height: 100%; /* fill the .nav-items container */
       display: flex;
       flex-direction: column;
-      justify-content: space-evenly;
+      justify-content: space-evenly; /* evenly distribute links vertically */
       align-items: center;
     }
     
@@ -67,17 +91,19 @@
       white-space: nowrap;
     }
     
-    /* Main Content (Right Side) */
+    /* Main Content (fills remaining space) */
     main {
       flex: 1;
       padding: 20px;
       background-color: #0095d9;
       text-align: center;
       color: #fff;
-      position: relative; /* To position language-selector absolutely within main */
+      position: relative;
+      height: 768px;
+      transform: translateX(0px); /* horizontally shifted in JS */
     }
     
-    /* Language Selector positioned in the top right corner */
+    /* Language Selector in top right */
     .language-selector {
       position: absolute;
       top: 20px;
@@ -92,28 +118,23 @@
       cursor: pointer;
     }
     
-    /* Logo & Tagline Wrapper */
+    /* Logo & Tagline */
     .logo-wrapper {
       margin: 20px auto 0;
       max-width: 600px;
       width: 100%;
     }
-    
-    /* Company Logo Container – scales down if needed */
     .company-logo {
       margin: 0 auto;
       max-width: 500px;
       width: 100%;
-      transition: max-width 0.3s ease;
     }
-    
     .company-logo img {
       width: 100%;
       height: auto;
       display: block;
     }
     
-    /* Tagline container – its font size will be adjusted dynamically */
     .logo-tagline {
       margin: 10px 0 0;
       text-align: left;
@@ -121,222 +142,194 @@
       line-height: 1.4;
       max-width: 600px;
       width: 100%;
-      /* Base font size; will be increased if extra space exists */
       font-size: 16px;
     }
     
     /* Manager Section */
     .manager-section {
-      margin: 20px auto 0; /* margin-top will be adjusted dynamically */
+      margin: 20px auto 0;
       max-width: 600px;
       width: 100%;
       text-align: center;
-      transition: margin-top 0.3s ease;
     }
-    
     .manager-section img {
-      /* Base maximum width for the manager image */
       max-width: 200px;
       width: 100%;
       height: auto;
       display: block;
       margin: 0 auto;
-      transition: max-width 0.3s ease;
     }
-    
     .manager-text {
       margin: 10px 0 0;
       text-align: center;
       line-height: 1.4;
-      /* Base font size for the manager text */
       font-size: 16px;
-      transition: font-size 0.3s ease;
     }
-    
     .manager-text strong {
       font-weight: bold;
     }
-    
     .manager-name {
       margin-top: 5px;
-    }
-    
-    /* Responsive adjustments (by width) */
-    @media (max-width: 768px) {
-      body {
-        flex-direction: column;
-        gap: 0;
-      }
-      nav {
-        width: 100%;
-        height: auto;
-      }
-      .nav-items ul {
-        height: auto;
-        justify-content: center;
-      }
-      .logo-wrapper,
-      .manager-section {
-        max-width: 90%;
-      }
     }
   </style>
 </head>
 <body>
-  <nav>
-    <!-- Top image -->
-    <div class="top-image">
-      <img src="ImageTopLeft.jpg" alt="Top Left Image">
-    </div>
-    
-    <!-- Navigation items -->
-    <div class="nav-items">
-      <ul>
-        <li><a href="#">Über uns</a></li>
-        <li><a href="#">Der Blick von Außen</a></li>
-        <li><a href="#">Marketing und Vertrieb</a></li>
-        <li><a href="#">Marktpotenzial</a></li>
-        <li><a href="#">Umsatzanalysen</a></li>
-        <li><a href="#">Umsatzoptimierung</a></li>
-        <li><a href="#">Absatz-Netzwerke</a></li>
-        <li><a href="#">Werbung und PR</a></li>
-        <li><a href="#">Schulung und Training</a></li>
-        <li><a href="#">Projektmanagement</a></li>
-        <li><a href="#">Kontakt</a></li>
-        <li><a href="#">Impressum</a></li>
-      </ul>
-    </div>
-    
-    <!-- Bottom image -->
-    <div class="bottom-image">
-      <img src="ImageBottomLeft.jpg" alt="Bottom Left Image">
-    </div>
-  </nav>
-  
-  <main>
-    <!-- Language Selector -->
-    <div class="language-selector">
-      <img src="germanflag.jpg" alt="German Flag">
-      <img src="ukflag.jpg" alt="UK Flag">
-    </div>
-  
-    <!-- Logo and Tagline Wrapper -->
-    <div class="logo-wrapper">
-      <div class="company-logo">
-        <img src="LogoBig.png" alt="Company Logo">
+  <!-- Wrap the layout in a fixed‐size scaler -->
+  <div id="scaler">
+    <nav>
+      <!-- Top image -->
+      <div class="top-image">
+        <img src="ImageTopLeft.jpg" alt="Top Left Image">
       </div>
-      <div class="logo-tagline">
-        <strong>
-          Wir bieten maßgeschneiderte Beratungsdienstleistungen in den Bereichen Marketing und Verkauf. Mit unseren umfangreichen Erfahrungen und unserem fundierten Wissen unterstützen wir Ihr Unternehmen auf dem Weg zum Erfolg.
-        </strong>
+
+      <!-- Navigation items -->
+      <div class="nav-items">
+        <ul>
+          <li><a href="#">Über uns</a></li>
+          <li><a href="#">Der Blick von Außen</a></li>
+          <li><a href="#">Marketing und Vertrieb</a></li>
+          <li><a href="#">Marktpotenzial</a></li>
+          <li><a href="#">Umsatzanalysen</a></li>
+          <li><a href="#">Umsatzoptimierung</a></li>
+          <li><a href="#">Absatz-Netzwerke</a></li>
+          <li><a href="#">Werbung und PR</a></li>
+          <li><a href="#">Schulung und Training</a></li>
+          <li><a href="#">Projektmanagement</a></li>
+          <li><a href="#">Kontakt</a></li>
+          <li><a href="#">Impressum</a></li>
+        </ul>
       </div>
-    </div>
-    
-    <!-- Manager Section -->
-    <div class="manager-section">
-      <img src="REDACTEDREDACTED.jpg" alt="REDACTED REDACTED">
-      <div class="manager-text">
-        <strong>
-          „DIE BASIS ALLER ERFOLGE<br>
-          SIND WISSEN UND ERFAHRUNG“
-        </strong>
-        <div class="manager-name">
-          REDACTED REDACTED, Geschäftsführer
+
+      <!-- Bottom image -->
+      <div class="bottom-image">
+        <img src="ImageBottomLeft.jpg" alt="Bottom Left Image">
+      </div>
+    </nav>
+
+    <main>
+      <!-- Language Selector -->
+      <div class="language-selector">
+        <img src="germanflag.jpg" alt="German Flag">
+        <img src="ukflag.jpg" alt="UK Flag">
+      </div>
+      
+      <!-- Logo and Tagline -->
+      <div class="logo-wrapper">
+        <div class="company-logo">
+          <img src="LogoBig.png" alt="Company Logo">
+        </div>
+        <div class="logo-tagline">
+          <strong>
+            Wir bieten maßgeschneiderte Beratungsdienstleistungen in den Bereichen Marketing und Verkauf. 
+            Mit unseren umfangreichen Erfahrungen und unserem fundierten Wissen unterstützen wir Ihr Unternehmen 
+            auf dem Weg zum Erfolg.
+          </strong>
         </div>
       </div>
-    </div>
-  </main>
 
-  <!-- JavaScript to dynamically adjust layout -->
+      <!-- Manager Section -->
+      <div class="manager-section">
+        <img src="REDACTEDREDACTED.jpg" alt="REDACTED REDACTED">
+        <div class="manager-text">
+          <strong>
+            „DIE BASIS ALLER ERFOLGE<br>
+            SIND WISSEN UND ERFAHRUNG“
+          </strong>
+          <div class="manager-name">
+            REDACTED REDACTED, Geschäftsführer
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
   <script>
-    function adjustLogoScale() {
-      const managerSection = document.querySelector('.manager-section');
-      const companyLogo = document.querySelector('.company-logo');
+    function scaleContent() {
+      const designWidth = 1366;
+      const designHeight = 768;
+      const navDesignWidth = 250;  // The left nav is 250px in the base design
+      
+      // 1. Compute the uniform scale factor so the entire 1366x768 fits in the viewport:
+      const s = Math.min(
+        window.innerWidth / designWidth,
+        window.innerHeight / designHeight
+      );
+      
+      // 2. Scale #scaler around its top-left corner
+      const scaler = document.getElementById('scaler');
+      scaler.style.transformOrigin = 'top left';
+      scaler.style.transform = `scale(${s})`;
+      
+      // 3. Vertically center #scaler in the viewport:
+      const totalScaledHeight = designHeight * s;
+      const topOffset = Math.max(0, (window.innerHeight - totalScaledHeight) / 2);
+      scaler.style.position = 'absolute';
+      scaler.style.left = '0px';
+      scaler.style.top = topOffset + 'px';
 
-      // Check if the bottom of the manager section is visible.
-      const managerBottom = managerSection.getBoundingClientRect().bottom;
-      const viewportHeight = window.innerHeight;
+      // 4. Construct a background gradient for the body:
+      const navWidthScaled = navDesignWidth * s;
+      document.body.style.background = `linear-gradient(to right, #fff ${navWidthScaled}px, #0095d9 ${navWidthScaled}px)`;
       
-      // If the manager section overflows, scale down the logo.
-      if (managerBottom > viewportHeight) {
-        companyLogo.style.maxWidth = '300px';
+      // 5. If the window is wider than the scaled design, center the main content.
+      const leftoverWidth = window.innerWidth - (designWidth * s);
+      const main = document.querySelector('main');
+      if (leftoverWidth > 0) {
+        // shift main to the right by half of leftover (in design units)
+        const shiftDesignX = leftoverWidth / (2 * s);
+        main.style.transform = `translateX(${shiftDesignX}px)`;
       } else {
-        companyLogo.style.maxWidth = '500px';
+        main.style.transform = 'translateX(0px)';
+      }
+
+      // 6. Keep the top & bottom images flush with the viewport top/bottom
+      //    by counteracting the vertical centering (topOffset).
+      const topImage = document.querySelector('.top-image img');
+      const bottomImage = document.querySelector('.bottom-image img');
+      
+      if (topOffset > 0) {
+        // Move the top image up
+        topImage.style.transform = `translateY(${-topOffset / s}px)`;
+        // Move the bottom image down
+        bottomImage.style.transform = `translateY(${topOffset / s}px)`;
+      } else {
+        topImage.style.transform = 'translateY(0px)';
+        bottomImage.style.transform = 'translateY(0px)';
+      }
+
+      // 7. Dynamically adjust nav-items to fill the space between top & bottom images
+      const nav = document.querySelector('nav');
+      const navItems = document.querySelector('.nav-items');
+
+      // Get bounding boxes in real pixels:
+      const navRect = nav.getBoundingClientRect();
+      const topRect = topImage.getBoundingClientRect();
+      const bottomRect = bottomImage.getBoundingClientRect();
+
+      // The space for nav-items is from the bottom of top image to the top of bottom image, 
+      // all measured relative to the nav container.
+      const spaceStartReal = topRect.bottom - navRect.top;   // bottom of top image (real px)
+      const spaceEndReal = bottomRect.top - navRect.top;     // top of bottom image (real px)
+      const availableSpaceReal = spaceEndReal - spaceStartReal;
+
+      // Convert these real-px measurements back to design coordinates
+      const spaceStartDesign = spaceStartReal / s;
+      const availableSpaceDesign = availableSpaceReal / s;
+
+      // Position .nav-items in design coordinates
+      // The .nav-items container will stretch from spaceStartDesign to spaceStartDesign + availableSpaceDesign
+      if (availableSpaceDesign > 0) {
+        navItems.style.top = spaceStartDesign + 'px';
+        navItems.style.height = availableSpaceDesign + 'px';
+      } else {
+        // If it’s negative or zero, just collapse it to avoid errors
+        navItems.style.top = '0px';
+        navItems.style.height = '0px';
       }
     }
-    
-    function adjustSpacing() {
-      const managerSection = document.querySelector('.manager-section');
-      const rect = managerSection.getBoundingClientRect();
-      const freeSpace = window.innerHeight - rect.bottom;
-      const baseMargin = 20;
-      // Increase margin-top by 50% of the extra free space.
-      const newMargin = freeSpace > 0 ? baseMargin + freeSpace * 0.5 : baseMargin;
-      managerSection.style.marginTop = newMargin + 'px';
-    }
-    
-    function adjustTaglineFontSize() {
-      const tagline = document.querySelector('.logo-tagline');
-      const managerSection = document.querySelector('.manager-section');
-      
-      // Measure the gap between the bottom of the tagline and the top of the manager section.
-      const taglineRect = tagline.getBoundingClientRect();
-      const managerRect = managerSection.getBoundingClientRect();
-      const gap = managerRect.top - taglineRect.bottom;
-      
-      const minGap = 10; // Target minimum gap
-      const baseFontSize = 16; // Base font size for the tagline in px
-      const maxFontSize = 32; // Maximum allowed font size
-      let newFontSize = baseFontSize;
-      
-      if (gap > minGap) {
-        newFontSize = baseFontSize + (gap - minGap) * 0.2;
-        if (newFontSize > maxFontSize) newFontSize = maxFontSize;
-      }
-      
-      tagline.style.fontSize = newFontSize + 'px';
-    }
-    
-    function adjustManagerSectionScale() {
-      const managerSection = document.querySelector('.manager-section');
-      const managerImage = managerSection.querySelector('img');
-      const managerText = managerSection.querySelector('.manager-text');
-      
-      // Base sizes
-      const baseImageMaxWidth = 200; // Base maximum width for the manager image
-      const baseTextFontSize = 16;   // Base font size for the manager text
-      
-      // Maximum allowed values
-      const maxImageWidth = 300;     // Maximum image width allowed
-      const maxTextFontSize = 20;    // Maximum font size allowed for text
-      
-      // Calculate free space below the manager section.
-      const rect = managerSection.getBoundingClientRect();
-      const freeSpace = window.innerHeight - rect.bottom;
-      
-      // Increase image size much more than text:
-      let imageIncrement = freeSpace * 0.2; // Increased scaling factor for image
-      if (imageIncrement > (maxImageWidth - baseImageMaxWidth)) {
-        imageIncrement = maxImageWidth - baseImageMaxWidth;
-      }
-      let textIncrement = freeSpace * 0.05; // Smaller scaling factor for text
-      if (textIncrement > (maxTextFontSize - baseTextFontSize)) {
-        textIncrement = maxTextFontSize - baseTextFontSize;
-      }
-      
-      managerImage.style.maxWidth = (baseImageMaxWidth + imageIncrement) + 'px';
-      managerText.style.fontSize = (baseTextFontSize + textIncrement) + 'px';
-    }
-    
-    function adjustLayout() {
-      adjustLogoScale();
-      adjustSpacing();
-      adjustTaglineFontSize();
-      adjustManagerSectionScale();
-    }
-    
-    window.addEventListener('load', adjustLayout);
-    window.addEventListener('resize', adjustLayout);
+
+    window.addEventListener('load', scaleContent);
+    window.addEventListener('resize', scaleContent);
   </script>
 </body>
 </html>
